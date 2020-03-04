@@ -7,6 +7,7 @@ import robot.Robot;
 import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
 import robot.RobotConstants.MOVEMENT;
+import utils.CommMgr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -275,6 +276,7 @@ public class FastestPathAlgo {
 
         Cell temp = path.pop();
         DIRECTION targetDir;
+        StringBuilder fpInstructions = new StringBuilder();
 
         ArrayList<MOVEMENT> movements = new ArrayList<>();
 
@@ -325,30 +327,35 @@ public class FastestPathAlgo {
             for (MOVEMENT x : movements) {
                 if (x == MOVEMENT.FORWARD) {
                     fCount++;
-                    if (fCount == 10) {
-                        bot.moveForwardMultiple(fCount);
-                        fCount = 0;
-                        exploredMap.repaint();
-                    }
+                    // if (fCount == 10) {
+                    //     bot.moveForwardMultiple(fCount);
+                    //     fCount = 0;
+                    //     exploredMap.repaint();
+                    // }
+                    
                 } else if (x == MOVEMENT.RIGHT || x == MOVEMENT.LEFT) {
                     if (fCount > 0) {
-                        bot.moveForwardMultiple(fCount);
+                        fpInstructions.append(((char)(fCount+64)));
+                        // bot.moveForwardMultiple(fCount);
                         fCount = 0;
-                        exploredMap.repaint();
+                        // exploredMap.repaint();
+                        fpInstructions.append(MOVEMENT.print(x));
                     }
 
-                    bot.move(x);
-                    exploredMap.repaint();
+                    // bot.move(x);
+                    // exploredMap.repaint();
                 }
             }
-
             if (fCount > 0) {
-                bot.moveForwardMultiple(fCount);
-                exploredMap.repaint();
+                fpInstructions.append(((char)(fCount+64)));
+                // bot.moveForwardMultiple(fCount);
+                // exploredMap.repaint();
             }
         }
 
         System.out.println("\nMovements: " + outputString.toString());
+        System.out.println("Fastest path message to arduino" + fpInstructions.toString());
+        CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);
         return outputString.toString();
     }
 

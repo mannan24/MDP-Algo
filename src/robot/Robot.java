@@ -304,7 +304,7 @@ public class Robot {
             SRFrontLeft.senseReal(explorationMap, result[1]);
             SRFrontCenter.senseReal(explorationMap, result[2]);
             SRFrontRight.senseReal(explorationMap, result[3]);
-            // SRLeft.senseReal(explorationMap, result[4]);
+            SRLeft.senseReal(explorationMap, result[4]);
             SRRight.senseReal(explorationMap, result[5]);
             LRLeft.senseReal(explorationMap, result[0]);
 

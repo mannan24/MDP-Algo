@@ -76,7 +76,12 @@ public class ExplorationAlgo {
         if (bot.getRealBot()) {
             CommMgr.getCommMgr().sendMsg(null, CommMgr.BOT_START);
         }
-        senseAndRepaint();
+        // senseAndRepaint();
+        // System.out.println("ExplorationALgo_________senseAndRepaint");
+        bot.setSensors();
+        // bot.sense(exploredMap, realMap);
+        exploredMap.repaint();
+
 
         areaExplored = calculateAreaExplored();
         System.out.println("Explored Area: " + areaExplored);
@@ -299,7 +304,7 @@ public class ExplorationAlgo {
                 moveBot(MOVEMENT.CALIBRATE);
             } else {
                 lastCalibrate++;
-                if (lastCalibrate >= 5) {
+                if (lastCalibrate >= 4) {
                     DIRECTION targetDir = getCalibrationDirection();
                     if (targetDir != null) {
                         lastCalibrate = 0;

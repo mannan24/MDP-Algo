@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 
 public class CommMgr {
 
-    public static final String EX_START = "E";       // Android --> PC
+    public static final String EX_START = "EX_START";       // Android --> PC
     public static final String FP_START = "FP_START";       // Android --> PC
     public static final String MAP_STRINGS = "MAP";         // PC --> Android
     public static final String BOT_POS = "BOT_POS";         // PC --> Android
@@ -91,9 +91,10 @@ public class CommMgr {
             if (msg == null) {
                 outputMsg = msgType + "\n";
             } else if (msgType.equals(MAP_STRINGS) || msgType.equals(BOT_POS)) {
-                outputMsg = "AN" + msg;
-            } else {
-                outputMsg = "AR" + msg;
+                outputMsg = "AN" + msg + "Q";
+            } 
+            else {
+                outputMsg = "AR" + msg + "Q";
             }
 
             System.out.println("Sending out message:\n" + outputMsg);

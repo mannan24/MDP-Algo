@@ -172,10 +172,12 @@ public class FastestPathAlgo {
     /**
      * Find the fastest path from the robot's current position to [goalRow, goalCol].
      */
-    public String runFastestPath(int goalRow, int goalCol) {
+    public String runFastestPath(int goalRow, int goalCol, int startRow, int startCol) {
         System.out.println("Calculating fastest path from (" + current.getRow() + ", " + current.getCol() + ") to goal (" + goalRow + ", " + goalCol + ")...");
 
         Stack<Cell> path;
+        //this.parents = new HashMap<>();
+
         do {
             loopCount++;
 
@@ -194,7 +196,9 @@ public class FastestPathAlgo {
                 System.out.println("Goal visited. Path found!");
                 path = getPath(goalRow, goalCol);
                 printFastestPath(path);
-                return executePath(path, goalRow, goalCol);
+                // Call the line below twice, append them, call sendMsg with the results
+
+                return executePath(path, goalRow, goalCol, startRow, startCol);
             }
 
             // Setup neighbors of current cell. [Top, Bottom, Left, Right].
@@ -271,7 +275,7 @@ public class FastestPathAlgo {
     /**
      * Executes the fastest path and returns a StringBuilder object with the path steps.
      */
-    private String executePath(Stack<Cell> path, int goalRow, int goalCol) {
+    private String executePath(Stack<Cell> path, int goalRow, int goalCol, int startRow, int startCol) {
         StringBuilder outputString = new StringBuilder();
 
         Cell temp = path.pop();
@@ -280,7 +284,7 @@ public class FastestPathAlgo {
 
         ArrayList<MOVEMENT> movements = new ArrayList<>();
 
-        Robot tempBot = new Robot(1, 1, false);
+        Robot tempBot = new Robot(startRow, startCol, false);
         tempBot.setSpeed(0);
         while ((tempBot.getRobotPosRow() != goalRow) || (tempBot.getRobotPosCol() != goalCol)) {
             if (tempBot.getRobotPosRow() == temp.getRow() && tempBot.getRobotPosCol() == temp.getCol()) {
@@ -356,7 +360,7 @@ public class FastestPathAlgo {
         System.out.println("\nMovements: " + outputString.toString());
         System.out.println("Fastest path message to arduino" + fpInstructions.toString());
         CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);
-        return outputString.toString();
+        return fpInstructions.toString();
     }
 
     /**

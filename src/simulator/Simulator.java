@@ -181,8 +181,9 @@ public class Simulator {
 
                 FastestPathAlgo fastestPath;
                 fastestPath = new FastestPathAlgo(exploredMap, bot);
-
-                fastestPath.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
+                
+                //fastestPath.runFastestPath(1,12,1,1);
+                fastestPath.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL,1, 1);
 
                 return 222;
             }

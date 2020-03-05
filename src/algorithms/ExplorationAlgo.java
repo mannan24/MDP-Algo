@@ -77,7 +77,6 @@ public class ExplorationAlgo {
             CommMgr.getCommMgr().sendMsg(null, CommMgr.BOT_START);
         }
         // senseAndRepaint();
-        // System.out.println("ExplorationALgo_________senseAndRepaint");
         bot.setSensors();
         // bot.sense(exploredMap, realMap);
         exploredMap.repaint();
@@ -223,11 +222,11 @@ public class ExplorationAlgo {
     private void goHome() {
         if (!bot.getTouchedGoal() && coverageLimit == 300 && timeLimit == 3600) {
             FastestPathAlgo goToGoal = new FastestPathAlgo(exploredMap, bot, realMap);
-            goToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
+            goToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL,1,1);
         }
 
         FastestPathAlgo returnToStart = new FastestPathAlgo(exploredMap, bot, realMap);
-        returnToStart.runFastestPath(RobotConstants.START_ROW, RobotConstants.START_COL);
+        returnToStart.runFastestPath(RobotConstants.START_ROW, RobotConstants.START_COL,1 ,1);
 
         System.out.println("Exploration complete!");
         areaExplored = calculateAreaExplored();
@@ -321,7 +320,6 @@ public class ExplorationAlgo {
      * Sets the bot's sensors, processes the sensor data and repaints the map.
      */
     private void senseAndRepaint() {
-        System.out.println("ExplorationALgo_________senseAndRepaint");
         bot.setSensors();
         bot.sense(exploredMap, realMap);
         exploredMap.repaint();

@@ -6,6 +6,7 @@ import map.Map;
 import map.MapConstants;
 import robot.Robot;
 import robot.RobotConstants;
+import robot.RobotConstants.DIRECTION;
 import utils.CommMgr;
 
 import javax.swing.*;
@@ -179,14 +180,13 @@ public class Simulator {
                     }
                 }
 
-                // FastestPathAlgo fastestPathToWp;
-                // fastestPathToWp = new FastestPathAlgo(exploredMap, bot);
-                // fastestPathToWp.runFastestPath(1,12,1,1);
-
-                FastestPathAlgo fastestPath;
-                fastestPath = new FastestPathAlgo(exploredMap, bot);
-                fastestPath.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL,1, 1);
-
+                FastestPathAlgo fastestPathToWayPoint;
+                fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
+                fastestPathToWayPoint.runFastestPath(11, 3);
+                
+                FastestPathAlgo fastestPathToGoal;
+                fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);
+                fastestPathToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
                 return 222;
             }
         }
@@ -209,7 +209,6 @@ public class Simulator {
                     CommMgr.getCommMgr().sendMsg(null, CommMgr.BOT_START);
                 }
 
-                System.out.println("Simulator.java_________creating the thread for exploration");
                 exploration.runExploration();
                 generateMapDescriptor(exploredMap);
 

@@ -222,11 +222,11 @@ public class ExplorationAlgo {
     private void goHome() {
         if (!bot.getTouchedGoal() && coverageLimit == 300 && timeLimit == 3600) {
             FastestPathAlgo goToGoal = new FastestPathAlgo(exploredMap, bot, realMap);
-            goToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL,1,1);
+            goToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
         }
 
         FastestPathAlgo returnToStart = new FastestPathAlgo(exploredMap, bot, realMap);
-        returnToStart.runFastestPath(RobotConstants.START_ROW, RobotConstants.START_COL,1 ,1);
+        returnToStart.runFastestPath(RobotConstants.START_ROW, RobotConstants.START_COL);
 
         System.out.println("Exploration complete!");
         areaExplored = calculateAreaExplored();

@@ -182,7 +182,7 @@ public class Simulator {
 
                 FastestPathAlgo fastestPathToWayPoint;
                 fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
-                fastestPathToWayPoint.runFastestPath(11, 3);
+                fastestPathToWayPoint.runFastestPath(2,12);
                 
                 FastestPathAlgo fastestPathToGoal;
                 fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);

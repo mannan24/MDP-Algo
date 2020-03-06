@@ -37,7 +37,7 @@ public class Simulator {
     private static int coverageLimit = 300;         // coverage limit
 
     private static final CommMgr comm = CommMgr.getCommMgr();
-    private static final boolean realRun = true;
+    private static final boolean realRun = false;
 
     /**
      * Initialises the different maps and displays the application.
@@ -179,10 +179,12 @@ public class Simulator {
                     }
                 }
 
+                // FastestPathAlgo fastestPathToWp;
+                // fastestPathToWp = new FastestPathAlgo(exploredMap, bot);
+                // fastestPathToWp.runFastestPath(1,12,1,1);
+
                 FastestPathAlgo fastestPath;
                 fastestPath = new FastestPathAlgo(exploredMap, bot);
-                
-                //fastestPath.runFastestPath(1,12,1,1);
                 fastestPath.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL,1, 1);
 
                 return 222;

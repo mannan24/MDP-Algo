@@ -62,7 +62,7 @@ public class FastestPathAlgo {
         this.current = map.getCell(bot.getRobotPosRow(), bot.getRobotPosCol());
         this.curDir = bot.getRobotCurDir();
         this.gCosts = new double[MapConstants.MAP_ROWS][MapConstants.MAP_COLS];
-
+        System.out.println("current map: "+current.getRow()+", "+current.getCol());
         // Initialise gCosts array
         for (int i = 0; i < MapConstants.MAP_ROWS; i++) {
             for (int j = 0; j < MapConstants.MAP_COLS; j++) {
@@ -341,8 +341,13 @@ public class FastestPathAlgo {
                         // bot.moveForwardMultiple(fCount);
                         fCount = 0;
                         // exploredMap.repaint();
-                        fpInstructions.append(MOVEMENT.print(x));
+                    if (x == MOVEMENT.RIGHT){
+                        bot.setRobotDir(DIRECTION.getNext(bot.getRobotCurDir()));
+                    } else {
+                        bot.setRobotDir(DIRECTION.getPrevious(bot.getRobotCurDir()));
+                        }
                     }
+                    fpInstructions.append(MOVEMENT.print(x));
 
                     // bot.move(x);
                     // exploredMap.repaint();

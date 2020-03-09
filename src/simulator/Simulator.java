@@ -182,8 +182,8 @@ public class Simulator {
 
                 FastestPathAlgo fastestPathToWayPoint;
                 fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
-                fastestPathToWayPoint.runFastestPath(6,9);
-                bot.setRobotPos(6,9);
+                fastestPathToWayPoint.runFastestPath(17,7);
+                bot.setRobotPos(17,7);
                 //bot.setRobotDir(bot.getRobotCurDir());
                 System.out.println("B4 goal: "+bot.getRobotPosRow()+ ", "+bot.getRobotPosCol());
                 FastestPathAlgo fastestPathToGoal;

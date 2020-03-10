@@ -38,13 +38,27 @@ public class Simulator {
     private static int coverageLimit = 300;         // coverage limit
 
     private static final CommMgr comm = CommMgr.getCommMgr();
+    private static int fpRow;
+    private static int fpCol;
     private static final boolean realRun = true;
 
     /**
      * Initialises the different maps and displays the application.
      */
     public static void main(String[] args) {
-        if (realRun) comm.openConnection();
+        if (realRun) {
+            comm.openConnection();
+
+            // Get waypoint from Android
+            System.out.println("Waiting for waypoint from Android");
+            String wpString = comm.recvMsg();
+            String[] waypoints = wpString.split(" ");
+            
+            fpRow = Integer.valueOf(waypoints[0]);
+            fpCol = Integer.valueOf(waypoints[1]);
+            System.out.println("fpRow: " + fpRow);
+            System.out.println("fpCol: " + fpCol);
+        }
 
         bot = new Robot(RobotConstants.START_ROW, RobotConstants.START_COL, realRun);
 
@@ -58,6 +72,7 @@ public class Simulator {
 
         displayEverything();
     }
+
 
     /**
      * Initialises the different parts of the application.
@@ -182,8 +197,8 @@ public class Simulator {
 
                 FastestPathAlgo fastestPathToWayPoint;
                 fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
-                fastestPathToWayPoint.runFastestPath(17,7);
-                bot.setRobotPos(17,7);
+                fastestPathToWayPoint.runFastestPath(fpRow,fpCol);
+                bot.setRobotPos(fpRow,fpCol);
                 //bot.setRobotDir(bot.getRobotCurDir());
                 System.out.println("B4 goal: "+bot.getRobotPosRow()+ ", "+bot.getRobotPosCol());
                 FastestPathAlgo fastestPathToGoal;

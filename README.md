@@ -29,5 +29,3 @@ Run `Simulator.java` and load a map by clicking on the `Load Map` button and typ
 <img src="Fastest Path Demo.gif" height="500px" width="auto"/>
 
 ****
-
-***Disclaimer:*** This repo is no longer maintained and was submitted as part of the coursework for CE/CZ 3004 Multi-Disciplinary Project at NTU in AY 16/17 Semester 2.

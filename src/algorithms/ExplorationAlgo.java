@@ -8,6 +8,8 @@ import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
 import robot.RobotConstants.MOVEMENT;
 import utils.CommMgr;
+import algorithms.FastestPathAlgo;
+import utils.MapDescriptor;
 
 /**
  * Exploration algorithm for the robot.
@@ -18,7 +20,7 @@ import utils.CommMgr;
 
 public class ExplorationAlgo {
     private final Map exploredMap;
-    private final int [][] visitedArr;
+    private int [][] visitedArr;
     private final Map realMap;
     private final Robot bot;
     private final int coverageLimit;
@@ -37,7 +39,7 @@ public class ExplorationAlgo {
         this.timeLimit = timeLimit;
 
         this.visitedArr = new int[20][15];
-        for( int i=0;i<visitedArr.length;i++){
+        for(int i=0;i<visitedArr.length;i++){
             for(int j=0;j<visitedArr[0].length;j++){
                 this.visitedArr[i][j] = 0;
             }
@@ -96,13 +98,18 @@ public class ExplorationAlgo {
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
 
         // Repaint dat shit
-        for (int row=20; row>0; row--){
-            for (int col=15; col>0; col--){
-                if (visitedArr[row][col] == 1){
-                    exploredMap.setObstacleCell(row, col, false);
+        for(int i=0;i<visitedArr.length;i++){
+            for(int j=0;j<visitedArr[0].length;j++){
+                if (visitedArr[i][j] == 1){
+                    exploredMap.setObstacleCell(i, j, false);
+                    System.out.print(visitedArr[i][j] + " ");
                 }
+                System.out.println();
             }
         }
+        exploredMap.repaint();
+        String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
+        CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
     }
 
 

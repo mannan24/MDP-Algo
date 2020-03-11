@@ -18,6 +18,7 @@ import utils.CommMgr;
 
 public class ExplorationAlgo {
     private final Map exploredMap;
+    private final int [][] visitedArr;
     private final Map realMap;
     private final Robot bot;
     private final int coverageLimit;
@@ -34,6 +35,13 @@ public class ExplorationAlgo {
         this.bot = bot;
         this.coverageLimit = coverageLimit;
         this.timeLimit = timeLimit;
+
+        this.visitedArr = new int[20][15];
+        for( int i=0;i<visitedArr.length;i++){
+            for(int j=0;j<visitedArr[0].length;j++){
+                this.visitedArr[i][j] = 0;
+            }
+        }
     }
 
     /**
@@ -86,7 +94,30 @@ public class ExplorationAlgo {
         System.out.println("Explored Area: " + areaExplored);
 
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
+
+        // Repaint dat shit
+        for (int row=20; row>0; row--){
+            for (int col=15; col>0; col--){
+                if (visitedArr[row][col] == 1){
+                    exploredMap.setObstacleCell(row, col, false);
+                }
+            }
+        }
     }
+
+
+    private void updateVisited(int row, int col){
+        visitedArr[row][col]=1;
+        visitedArr[row-1][col-1]=1;
+        visitedArr[row-1][col]=1;
+        visitedArr[row-1][col+1]=1;
+        visitedArr[row][col-1]=1;
+        visitedArr[row][col+1]=1;
+        visitedArr[row+1][col-1]=1;
+        visitedArr[row+1][col]=1;
+        visitedArr[row+1][col+1]=1;
+    }
+
 
     /**
      * Loops through robot movements until one (or more) of the following conditions is met:
@@ -98,6 +129,7 @@ public class ExplorationAlgo {
         do {
             nextMove();
 
+            updateVisited(bot.getRobotPosRow(), bot.getRobotPosCol());
             areaExplored = calculateAreaExplored();
             System.out.println("Area explored: " + areaExplored);
 
@@ -107,6 +139,17 @@ public class ExplorationAlgo {
                 }
             }
         } while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime);
+        
+        /*int countNoOfRevisits = 0;
+        while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime && countNoOfRevisits < 4){
+            countNoOfRevisits++;
+            
+            //calcualate the rectangle
+            
+            FastestPathAlgo fp;
+            fp = new FastestPathAlgo(exploredMap, bot);
+
+        }*/
 
         goHome();
     }

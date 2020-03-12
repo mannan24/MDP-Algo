@@ -10,6 +10,7 @@ import robot.RobotConstants.MOVEMENT;
 import utils.CommMgr;
 import algorithms.FastestPathAlgo;
 import utils.MapDescriptor;
+import map.Visited;
 
 /**
  * Exploration algorithm for the robot.
@@ -20,7 +21,6 @@ import utils.MapDescriptor;
 
 public class ExplorationAlgo {
     private final Map exploredMap;
-    private int [][] visitedArr;
     private final Map realMap;
     private final Robot bot;
     private final int coverageLimit;
@@ -37,13 +37,6 @@ public class ExplorationAlgo {
         this.bot = bot;
         this.coverageLimit = coverageLimit;
         this.timeLimit = timeLimit;
-
-        this.visitedArr = new int[20][15];
-        for(int i=0;i<visitedArr.length;i++){
-            for(int j=0;j<visitedArr[0].length;j++){
-                this.visitedArr[i][j] = 0;
-            }
-        }
     }
 
     /**
@@ -97,16 +90,41 @@ public class ExplorationAlgo {
 
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
 
-        // Repaint dat shit
-        for(int i=0;i<visitedArr.length;i++){
-            for(int j=0;j<visitedArr[0].length;j++){
-                if (visitedArr[i][j] == 1){
-                    exploredMap.setObstacleCell(i, j, false);
-                    System.out.print(visitedArr[i][j] + " ");
-                }
-                System.out.println();
-            }
-        }
+        // // Repaint dat shit
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         if (visitedArr[i][j] == 1){
+        //             exploredMap.setObstacleCell(i, j, false);
+        //             System.out.print(i + ", " + j + " | ");
+        //         }
+        //         System.out.println();
+        //     }
+        // }
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         if (visitedArr[i][j] == 1){
+        //             exploredMap.grid[i][j].setVirtualWall();
+        //             System.out.print(i + ", " + j + " | ");
+        //         }
+        //         System.out.println();
+        //     }
+        // }
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         for (int di = -1; di <= 1; di++) {
+        //             int ii = i + di;
+        //             if 
+        //             for (int dj = -1; dj <= 1; dj++) {
+        //                 int jj = j + dj;
+
+
+
+        //             }
+        //         }
+                
+        //     }
+        // }
+
         exploredMap.repaint();
         String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
         CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
@@ -114,15 +132,15 @@ public class ExplorationAlgo {
 
 
     private void updateVisited(int row, int col){
-        visitedArr[row][col]=1;
-        visitedArr[row-1][col-1]=1;
-        visitedArr[row-1][col]=1;
-        visitedArr[row-1][col+1]=1;
-        visitedArr[row][col-1]=1;
-        visitedArr[row][col+1]=1;
-        visitedArr[row+1][col-1]=1;
-        visitedArr[row+1][col]=1;
-        visitedArr[row+1][col+1]=1;
+        Visited.visitedArr[row][col]=1;
+        Visited.visitedArr[row-1][col-1]=1;
+        Visited.visitedArr[row-1][col]=1;
+        Visited.visitedArr[row-1][col+1]=1;
+        Visited.visitedArr[row][col-1]=1;
+        Visited.visitedArr[row][col+1]=1;
+        Visited.visitedArr[row+1][col-1]=1;
+        Visited.visitedArr[row+1][col]=1;
+        Visited.visitedArr[row+1][col+1]=1;
     }
 
 

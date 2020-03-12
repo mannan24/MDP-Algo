@@ -40,7 +40,7 @@ public class Simulator {
     private static final CommMgr comm = CommMgr.getCommMgr();
     private static int fpRow;
     private static int fpCol;
-    private static final boolean realRun = false;
+    private static final boolean realRun = true;
 
     /**
      * Initialises the different maps and displays the application.

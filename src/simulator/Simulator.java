@@ -186,7 +186,19 @@ public class Simulator {
             protected Integer doInBackground() throws Exception {
                 bot.setRobotPos(RobotConstants.START_ROW, RobotConstants.START_COL);
                 exploredMap.repaint();
+                
+                FastestPathAlgo fastestPathToWayPoint;
+                fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
+                String fp1 = fastestPathToWayPoint.runFastestPath(fpRow,fpCol);
+                bot.setRobotPos(fpRow,fpCol);
 
+                System.out.println("B4 goal: "+bot.getRobotPosRow()+ ", "+bot.getRobotPosCol());
+                FastestPathAlgo fastestPathToGoal;
+                fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);
+                String fp2 = fastestPathToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
+
+                String fpInstructions = fp1+fp2;
+                
                 if (realRun) {
                     while (true) {
                         System.out.println("Waiting for FP_START...");
@@ -195,15 +207,7 @@ public class Simulator {
                     }
                 }
 
-                FastestPathAlgo fastestPathToWayPoint;
-                fastestPathToWayPoint = new FastestPathAlgo(exploredMap, bot);
-                fastestPathToWayPoint.runFastestPath(fpRow,fpCol);
-                bot.setRobotPos(fpRow,fpCol);
-                //bot.setRobotDir(bot.getRobotCurDir());
-                System.out.println("B4 goal: "+bot.getRobotPosRow()+ ", "+bot.getRobotPosCol());
-                FastestPathAlgo fastestPathToGoal;
-                fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);
-                fastestPathToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
+                CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);                
                 return 222;
             }
         }

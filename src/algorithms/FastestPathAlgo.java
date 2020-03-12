@@ -362,7 +362,7 @@ public class FastestPathAlgo {
 
         System.out.println("\nMovements: " + outputString.toString());
         System.out.println("Fastest path message to arduino" + fpInstructions.toString());
-        CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);
+        //CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);
         return fpInstructions.toString();
     }
 

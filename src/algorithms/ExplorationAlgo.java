@@ -8,6 +8,9 @@ import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
 import robot.RobotConstants.MOVEMENT;
 import utils.CommMgr;
+import algorithms.FastestPathAlgo;
+import utils.MapDescriptor;
+import map.Visited;
 
 /**
  * Exploration algorithm for the robot.
@@ -86,7 +89,60 @@ public class ExplorationAlgo {
         System.out.println("Explored Area: " + areaExplored);
 
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
+
+        // // Repaint dat shit
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         if (visitedArr[i][j] == 1){
+        //             exploredMap.setObstacleCell(i, j, false);
+        //             System.out.print(i + ", " + j + " | ");
+        //         }
+        //         System.out.println();
+        //     }
+        // }
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         if (visitedArr[i][j] == 1){
+        //             exploredMap.grid[i][j].setVirtualWall();
+        //             System.out.print(i + ", " + j + " | ");
+        //         }
+        //         System.out.println();
+        //     }
+        // }
+        // for(int i=0;i<visitedArr.length;i++){
+        //     for(int j=0;j<visitedArr[0].length;j++){
+        //         for (int di = -1; di <= 1; di++) {
+        //             int ii = i + di;
+        //             if 
+        //             for (int dj = -1; dj <= 1; dj++) {
+        //                 int jj = j + dj;
+
+
+
+        //             }
+        //         }
+                
+        //     }
+        // }
+
+        exploredMap.repaint();
+        String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
+        CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
     }
+
+
+    private void updateVisited(int row, int col){
+        Visited.visitedArr[row][col]=1;
+        Visited.visitedArr[row-1][col-1]=1;
+        Visited.visitedArr[row-1][col]=1;
+        Visited.visitedArr[row-1][col+1]=1;
+        Visited.visitedArr[row][col-1]=1;
+        Visited.visitedArr[row][col+1]=1;
+        Visited.visitedArr[row+1][col-1]=1;
+        Visited.visitedArr[row+1][col]=1;
+        Visited.visitedArr[row+1][col+1]=1;
+    }
+
 
     /**
      * Loops through robot movements until one (or more) of the following conditions is met:
@@ -98,6 +154,7 @@ public class ExplorationAlgo {
         do {
             nextMove();
 
+            updateVisited(bot.getRobotPosRow(), bot.getRobotPosCol());
             areaExplored = calculateAreaExplored();
             System.out.println("Area explored: " + areaExplored);
 
@@ -107,6 +164,17 @@ public class ExplorationAlgo {
                 }
             }
         } while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime);
+        
+        /*int countNoOfRevisits = 0;
+        while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime && countNoOfRevisits < 4){
+            countNoOfRevisits++;
+            
+            //calcualate the rectangle
+            
+            FastestPathAlgo fp;
+            fp = new FastestPathAlgo(exploredMap, bot);
+
+        }*/
 
         goHome();
     }

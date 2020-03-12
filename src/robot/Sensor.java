@@ -1,6 +1,7 @@
 package robot;
 
 import map.Map;
+import map.Visited;
 import robot.RobotConstants.DIRECTION;
 
 /**
@@ -130,7 +131,10 @@ public class Sensor {
             exploredMap.getCell(row, col).setIsExplored(true);
 
             if (sensorVal + 1 == i) {
-                exploredMap.setObstacleCell(row, col, true);
+                if(Visited.visitedArr[row][col]==0)
+                {
+                    exploredMap.setObstacleCell(row, col, true);
+                }
                 break;
             }
 

@@ -90,41 +90,6 @@ public class ExplorationAlgo {
 
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
 
-        // // Repaint dat shit
-        // for(int i=0;i<visitedArr.length;i++){
-        //     for(int j=0;j<visitedArr[0].length;j++){
-        //         if (visitedArr[i][j] == 1){
-        //             exploredMap.setObstacleCell(i, j, false);
-        //             System.out.print(i + ", " + j + " | ");
-        //         }
-        //         System.out.println();
-        //     }
-        // }
-        // for(int i=0;i<visitedArr.length;i++){
-        //     for(int j=0;j<visitedArr[0].length;j++){
-        //         if (visitedArr[i][j] == 1){
-        //             exploredMap.grid[i][j].setVirtualWall();
-        //             System.out.print(i + ", " + j + " | ");
-        //         }
-        //         System.out.println();
-        //     }
-        // }
-        // for(int i=0;i<visitedArr.length;i++){
-        //     for(int j=0;j<visitedArr[0].length;j++){
-        //         for (int di = -1; di <= 1; di++) {
-        //             int ii = i + di;
-        //             if 
-        //             for (int dj = -1; dj <= 1; dj++) {
-        //                 int jj = j + dj;
-
-
-
-        //             }
-        //         }
-                
-        //     }
-        // }
-
         exploredMap.repaint();
         String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
         CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
@@ -152,9 +117,8 @@ public class ExplorationAlgo {
      */
     private void explorationLoop(int r, int c) {
         do {
-            nextMove();
-
             updateVisited(bot.getRobotPosRow(), bot.getRobotPosCol());
+            nextMove();
             areaExplored = calculateAreaExplored();
             System.out.println("Area explored: " + areaExplored);
 

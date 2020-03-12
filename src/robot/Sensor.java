@@ -134,6 +134,19 @@ public class Sensor {
                 if(Visited.visitedArr[row][col]==0)
                 {
                     exploredMap.setObstacleCell(row, col, true);
+                //     System.out.println("row col: obstacle");
+                //     System.out.println("Row = "+row);
+                //     System.out.println("Col ="+col);
+                //     for(int k=19; k>=0;k--){
+                //         for(int j=0;j<15;j++){
+                //             System.out.print(Visited.visitedArr[k][j]);
+                //         }
+                //         System.out.println();
+                //     }
+                // } else {
+                //     System.out.println("row col: fail");
+                //     System.out.println("Row = "+row);
+                //     System.out.println("Col ="+col);
                 }
                 break;
             }

@@ -4,6 +4,7 @@ import algorithms.ExplorationAlgo;
 import algorithms.FastestPathAlgo;
 import map.Map;
 import map.MapConstants;
+import map.Visited;
 import robot.Robot;
 import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
@@ -232,6 +233,13 @@ public class Simulator {
 
                 exploration.runExploration();
                 generateMapDescriptor(exploredMap);
+
+                // for(int i=0; i<20;i++){
+                //     for(int j=0;j<15;j++){
+                //         System.out.print(Visited.visitedArr[i][j]);
+                //     }
+                //     System.out.println();
+                // }
 
                 if (realRun) {
                     new FastestPath().execute();

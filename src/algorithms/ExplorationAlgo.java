@@ -93,6 +93,7 @@ public class ExplorationAlgo {
         exploredMap.repaint();
         String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
         CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
+        CommMgr.getCommMgr().sendMsg("END", CommMgr.BOT_POS);
     }
 
 

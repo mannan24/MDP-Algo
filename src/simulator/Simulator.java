@@ -197,9 +197,15 @@ public class Simulator {
                 FastestPathAlgo fastestPathToGoal;
                 fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);
                 String fp2 = fastestPathToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
-
-                String fpInstructions = fp1+fp2;
-                
+                String fpInstructions="";
+                if(Character.isUpperCase(fp1.charAt(fp1.length()-1)) && Character.isUpperCase(fp2.charAt(0))){
+                    char c = (char)(fp1.charAt(fp1.length()-1)+fp2.charAt(0)-64);
+                    fpInstructions = fpInstructions + fp1.substring(0,fp1.length()-1) + c + fp2.substring(1);
+                }   
+                else
+                {
+                    fpInstructions= fpInstructions+fp1+fp2;
+                }
                 if (realRun) {
                     while (true) {
                         System.out.println("Waiting for FP_START...");

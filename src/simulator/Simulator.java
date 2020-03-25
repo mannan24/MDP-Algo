@@ -207,13 +207,13 @@ public class Simulator {
                     fpInstructions= fpInstructions+fp1+fp2;
                 }
                 if (realRun) {
-                    while (true) {
-                        System.out.println("Waiting for FP_START...");
-                        String msg = comm.recvMsg();
-                        if (msg.equals(CommMgr.FP_START)) break;
-                    }
+                    // while (true) {
+                    //     System.out.println("Waiting for FP_START...");
+                    //     String msg = comm.recvMsg();
+                    //     if (msg.equals(CommMgr.FP_START)) break;
+                    // }
+                    fpInstructions = "0" + fpInstructions;
                 }
-
                 CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);                
                 return 222;
             }

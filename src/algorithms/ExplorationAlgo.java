@@ -270,9 +270,12 @@ public class ExplorationAlgo {
         if (bot.getRealBot()) {
             turnBotDirection(DIRECTION.WEST);
             moveBot(MOVEMENT.CALIBRATE);
+            moveBot(MOVEMENT.CALIBRATE);
             turnBotDirection(DIRECTION.SOUTH);
             moveBot(MOVEMENT.CALIBRATE);
+            moveBot(MOVEMENT.CALIBRATE);
             turnBotDirection(DIRECTION.WEST);
+            moveBot(MOVEMENT.CALIBRATE);
             moveBot(MOVEMENT.CALIBRATE);
         }
         turnBotDirection(DIRECTION.NORTH);
@@ -336,7 +339,7 @@ public class ExplorationAlgo {
                 moveBot(MOVEMENT.CALIBRATE);
             } else {
                 lastCalibrate++;
-                if (lastCalibrate >= 4) {
+                if (lastCalibrate >= 5) {
                     DIRECTION targetDir = getCalibrationDirection();
                     if (targetDir != null) {
                         lastCalibrate = 0;

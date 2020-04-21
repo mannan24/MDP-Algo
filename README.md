@@ -2,13 +2,13 @@
 
 This repository contains the algorithm(s) used to drive an autonomous ground vehicle through an unknown maze. It is part of a bigger project that involved a physical robot (Arduino Uno + Hardware), an Android tablet and a Raspberry Pi (communication server).
 
-There are two main driving phases &mdash; **Exploration** & **Fastest Path**. The exploration phase involves the robot exploring the unknown maze to detect the locations of obstacles, starting from the `START` zone and ending at the `START` zone. The fastest path phase involves the robot computing and executing the fastest path from the `START` zone to the `GOAL` zone.
+There are two main driving phases of the Algorithm &mdash; **Exploration** & **Fastest Path**. The exploration phase involves the robot exploring the unknown maze to detect the locations of obstacles, starting from the `START` zone and ending at the `START` zone. The fastest path phase involves the robot computing and executing the fastest path from the `START` zone to the `GOAL` zone through a pre-specififed `WAYPOINT`.
 
 ### Running MDPAlgorithm
 
 In order to run this project independently (i.e. without the other components of the system, including the physical robot), the built-in simulator can be used.
 
-Set `realRun` in Line 40 of `Simulator.java` to `false`:
+Set `realRun` in Line 43 of `Simulator.java` to `false`:
 
 ```java
 private static final boolean realRun = false;

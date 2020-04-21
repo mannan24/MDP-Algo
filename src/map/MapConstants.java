@@ -2,8 +2,8 @@ package map;
 
 /**
  * Constants used in the Map class.
- *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 public class MapConstants {

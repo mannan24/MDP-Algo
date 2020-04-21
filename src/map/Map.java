@@ -8,8 +8,8 @@ import java.awt.*;
 
 /**
  * Represents the entire map grid for the arena.
- *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 public class Map extends JPanel {

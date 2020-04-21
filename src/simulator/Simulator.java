@@ -21,9 +21,8 @@ import static utils.MapDescriptor.loadMapFromDisk;
 /**
  * Simulator for robot navigation in virtual arena.
  *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
  */
-
 public class Simulator {
     private static JFrame _appFrame = null;         // application JFrame
 

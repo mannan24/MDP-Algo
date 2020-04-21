@@ -15,8 +15,8 @@ import map.Visited;
 /**
  * Exploration algorithm for the robot.
  *
- * @author Priyanshu Singh
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 public class ExplorationAlgo {

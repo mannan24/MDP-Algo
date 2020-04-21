@@ -6,8 +6,8 @@ import java.net.UnknownHostException;
 
 /**
  * Communication manager to communicate with the different parts of the system via the RasPi.
- *
- * @author SuyashLakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 public class CommMgr {

@@ -24,8 +24,8 @@ import java.util.concurrent.TimeUnit;
  *
  * SR = Short Range Sensor, LR = Long Range Sensor
  *
- * @author Suyash Lakhotia
- */
+ * @author Chio Ting Kiat
+ * @author Mannan Kant */
 // @formatter:on
 
 public class Robot {

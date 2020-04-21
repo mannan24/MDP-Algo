@@ -5,7 +5,8 @@ import java.awt.*;
 /**
  * Constants used in the Map class for rendering the arena in the simulator.
  *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 class GraphicsConstants {

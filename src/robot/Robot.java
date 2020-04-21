@@ -24,8 +24,8 @@ import java.util.concurrent.TimeUnit;
  *
  * SR = Short Range Sensor, LR = Long Range Sensor
  *
- * @author Suyash Lakhotia
- */
+ * @author Chio Ting Kiat
+ * @author Mannan Kant */
 // @formatter:on
 
 public class Robot {
@@ -281,19 +281,8 @@ public class Robot {
             result[5] = LRLeft.sense(explorationMap, realMap);
         } else {
             CommMgr comm = CommMgr.getCommMgr();
-            //TODO: ask AR to send the sensor data
             String msg = comm.recvMsg();
             String[] msgArr = msg.split("\\|");
-
-            /*if (msgArr[0].equals(CommMgr.SENSOR_DATA)) {
-                result[0] = Integer.parseInt(msgArr[0].substring(msgArr[0].length()-1));
-                result[1] = Integer.parseInt(msgArr[1]);
-                result[2] = Integer.parseInt(msgArr[2]);
-                result[3] = Integer.parseInt(msgArr[3]);
-                result[4] = Integer.parseInt(msgArr[4]);
-                result[5] = Integer.parseInt(msgArr[5]);
-            }*/
-            //System.out.println(msgArr[1]);
             result[0] = Integer.parseInt(msgArr[0].substring(msgArr[0].length()-1));
             result[1] = Integer.parseInt(msgArr[1]);
             result[2] = Integer.parseInt(msgArr[2]);

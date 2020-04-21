@@ -8,12 +8,15 @@ import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
 import robot.RobotConstants.MOVEMENT;
 import utils.CommMgr;
+import algorithms.FastestPathAlgo;
+import utils.MapDescriptor;
+import map.Visited;
 
 /**
  * Exploration algorithm for the robot.
  *
- * @author Priyanshu Singh
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
  */
 
 public class ExplorationAlgo {
@@ -86,7 +89,26 @@ public class ExplorationAlgo {
         System.out.println("Explored Area: " + areaExplored);
 
         explorationLoop(bot.getRobotPosRow(), bot.getRobotPosCol());
+
+        exploredMap.repaint();
+        String[] mapStrings = MapDescriptor.generateMapDescriptor(exploredMap);
+        CommMgr.getCommMgr().sendMsg("md"+mapStrings[0] + " " + mapStrings[1] + " " + bot.getRobotPosRow() + " " + bot.getRobotPosCol() + " " + DIRECTION.print(bot.getRobotCurDir()), CommMgr.MAP_STRINGS);
+        CommMgr.getCommMgr().sendMsg("END", CommMgr.BOT_POS);
     }
+
+
+    private void updateVisited(int row, int col){
+        Visited.visitedArr[row][col]=1;
+        Visited.visitedArr[row-1][col-1]=1;
+        Visited.visitedArr[row-1][col]=1;
+        Visited.visitedArr[row-1][col+1]=1;
+        Visited.visitedArr[row][col-1]=1;
+        Visited.visitedArr[row][col+1]=1;
+        Visited.visitedArr[row+1][col-1]=1;
+        Visited.visitedArr[row+1][col]=1;
+        Visited.visitedArr[row+1][col+1]=1;
+    }
+
 
     /**
      * Loops through robot movements until one (or more) of the following conditions is met:
@@ -96,8 +118,8 @@ public class ExplorationAlgo {
      */
     private void explorationLoop(int r, int c) {
         do {
+            updateVisited(bot.getRobotPosRow(), bot.getRobotPosCol());
             nextMove();
-
             areaExplored = calculateAreaExplored();
             System.out.println("Area explored: " + areaExplored);
 
@@ -107,6 +129,17 @@ public class ExplorationAlgo {
                 }
             }
         } while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime);
+        
+        /*int countNoOfRevisits = 0;
+        while (areaExplored <= coverageLimit && System.currentTimeMillis() <= endTime && countNoOfRevisits < 4){
+            countNoOfRevisits++;
+            
+            //calcualate the rectangle
+            
+            FastestPathAlgo fp;
+            fp = new FastestPathAlgo(exploredMap, bot);
+
+        }*/
 
         goHome();
     }
@@ -237,9 +270,12 @@ public class ExplorationAlgo {
         if (bot.getRealBot()) {
             turnBotDirection(DIRECTION.WEST);
             moveBot(MOVEMENT.CALIBRATE);
+            moveBot(MOVEMENT.CALIBRATE);
             turnBotDirection(DIRECTION.SOUTH);
             moveBot(MOVEMENT.CALIBRATE);
+            moveBot(MOVEMENT.CALIBRATE);
             turnBotDirection(DIRECTION.WEST);
+            moveBot(MOVEMENT.CALIBRATE);
             moveBot(MOVEMENT.CALIBRATE);
         }
         turnBotDirection(DIRECTION.NORTH);
@@ -303,7 +339,7 @@ public class ExplorationAlgo {
                 moveBot(MOVEMENT.CALIBRATE);
             } else {
                 lastCalibrate++;
-                if (lastCalibrate >= 4) {
+                if (lastCalibrate >= 5) {
                     DIRECTION targetDir = getCalibrationDirection();
                     if (targetDir != null) {
                         lastCalibrate = 0;

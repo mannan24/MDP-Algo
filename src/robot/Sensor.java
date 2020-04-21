@@ -1,12 +1,13 @@
 package robot;
 
 import map.Map;
+import map.Visited;
 import robot.RobotConstants.DIRECTION;
 
 /**
  * Represents a sensor mounted on the robot.
- *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant 
  */
 
 public class Sensor {
@@ -130,7 +131,23 @@ public class Sensor {
             exploredMap.getCell(row, col).setIsExplored(true);
 
             if (sensorVal + 1 == i) {
-                exploredMap.setObstacleCell(row, col, true);
+                if(Visited.visitedArr[row][col]==0)
+                {
+                    exploredMap.setObstacleCell(row, col, true);
+                //     System.out.println("row col: obstacle");
+                //     System.out.println("Row = "+row);
+                //     System.out.println("Col ="+col);
+                //     for(int k=19; k>=0;k--){
+                //         for(int j=0;j<15;j++){
+                //             System.out.print(Visited.visitedArr[k][j]);
+                //         }
+                //         System.out.println();
+                //     }
+                // } else {
+                //     System.out.println("row col: fail");
+                //     System.out.println("Row = "+row);
+                //     System.out.println("Col ="+col);
+                }
                 break;
             }
 

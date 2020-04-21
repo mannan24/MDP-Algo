@@ -4,6 +4,7 @@ import algorithms.ExplorationAlgo;
 import algorithms.FastestPathAlgo;
 import map.Map;
 import map.MapConstants;
+import map.Visited;
 import robot.Robot;
 import robot.RobotConstants;
 import robot.RobotConstants.DIRECTION;
@@ -20,9 +21,8 @@ import static utils.MapDescriptor.loadMapFromDisk;
 /**
  * Simulator for robot navigation in virtual arena.
  *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
  */
-
 public class Simulator {
     private static JFrame _appFrame = null;         // application JFrame
 
@@ -196,17 +196,23 @@ public class Simulator {
                 FastestPathAlgo fastestPathToGoal;
                 fastestPathToGoal = new FastestPathAlgo(exploredMap, bot);
                 String fp2 = fastestPathToGoal.runFastestPath(RobotConstants.GOAL_ROW, RobotConstants.GOAL_COL);
-
-                String fpInstructions = fp1+fp2;
-                
-                if (realRun) {
-                    while (true) {
-                        System.out.println("Waiting for FP_START...");
-                        String msg = comm.recvMsg();
-                        if (msg.equals(CommMgr.FP_START)) break;
-                    }
+                String fpInstructions="";
+                if(Character.isUpperCase(fp1.charAt(fp1.length()-1)) && Character.isUpperCase(fp2.charAt(0))){
+                    char c = (char)(fp1.charAt(fp1.length()-1)+fp2.charAt(0)-64);
+                    fpInstructions = fpInstructions + fp1.substring(0,fp1.length()-1) + c + fp2.substring(1);
+                }   
+                else
+                {
+                    fpInstructions= fpInstructions+fp1+fp2;
                 }
-
+                if (realRun) {
+                    // while (true) {
+                    //     System.out.println("Waiting for FP_START...");
+                    //     String msg = comm.recvMsg();
+                    //     if (msg.equals(CommMgr.FP_START)) break;
+                    // }
+                    fpInstructions = "0" + fpInstructions;
+                }
                 CommMgr.getCommMgr().sendMsg(fpInstructions.toString(), CommMgr.INSTRUCTIONS);                
                 return 222;
             }
@@ -232,6 +238,13 @@ public class Simulator {
 
                 exploration.runExploration();
                 generateMapDescriptor(exploredMap);
+
+                // for(int i=0; i<20;i++){
+                //     for(int j=0;j<15;j++){
+                //         System.out.print(Visited.visitedArr[i][j]);
+                //     }
+                //     System.out.println();
+                // }
 
                 if (realRun) {
                     new FastestPath().execute();

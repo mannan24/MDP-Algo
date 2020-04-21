@@ -2,8 +2,8 @@ package robot;
 
 /**
  * Constants used in this package.
- *
- * @author Suyash Lakhotia
+ * @author Chio Ting Kiat
+ * @author Mannan Kant 
  */
 
 public class RobotConstants {

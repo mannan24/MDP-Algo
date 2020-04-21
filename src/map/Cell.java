@@ -3,8 +3,9 @@ package map;
 /**
  * Represents each cell in the map grid.
  *
- * @author Suyash Lakhotia
- */
+ * @author Chio Ting Kiat
+ * @author Mannan Kant
+ *  */
 
 public class Cell {
     private final int row;
